@@ -24,7 +24,7 @@ const App = () => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
     )  
-  }, [])
+  }, [updatedBlogLikes])
   
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -141,8 +141,8 @@ const App = () => {
     }
   }
   
-  const mappedBlogs = blogs.map(blog =><Blog key={blog.id} blog={blog} userInfo={user} increaseLikes={() => increaseLikes(blog.id)} blogLikes={updatedBlogLikes}/>)
-  //mappedBlogs.sort((a,b)=> a.props.blog.likes-b.props.blog.likes)
+  const mappedBlogs = blogs.map(blog =><Blog key={blog.id} blog={blog} userInfo={user} increaseLikes={() => increaseLikes(blog.id)}/>)
+  mappedBlogs.sort((a,b)=> a.props.blog.likes-b.props.blog.likes)
   //console.log(mappedBlogs)
   //console.log(mappedBlogs[0], 'is mapped blogs zero')
   //console.log(mappedBlogs[0].props, 'is mapped blogs zero props')
