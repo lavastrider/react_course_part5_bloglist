@@ -27,10 +27,17 @@ const update = (id, newObject) => {
   return request.then((response) => response.data)
 }
 
+const deleteEntry = (id) => {
+  console.log('we dare in the delete entry')
+  axios.delete(`${baseUrl}/${id}`)
+  console.log('we deleted the entry')
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { 
   getAll,
   create,
   update,
+  deleteEntry,
   setToken 
 }

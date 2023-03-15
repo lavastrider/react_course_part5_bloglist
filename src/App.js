@@ -13,6 +13,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [updatedBlogLikes, setUpdatedBlogLikes] = useState('')
   
   const [errorMessage, setErrorMessage] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
@@ -89,6 +90,32 @@ const App = () => {
     )  
   }
   
+  const increaseLikes = async (id) => {
+  
+    const blog = blogs.find((diary)=> diary.id === id)
+    console.log(blog, 'is blog')
+    console.log(blog.id, 'is blog id')
+    //console.log(blog.user, 'is blog user')
+    //console.log(blog.user.id, 'is blog user id')
+    console.log(blog.likes, 'is blog likes before update')
+    
+    const updatedBlogInfo = {
+      likes: blog.likes+1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
+    
+    setUpdatedBlogLikes(updatedBlogInfo.likes)
+    //console.log(updatedBlogInfo, 'is updated blog info')
+    await blogService.update(blog.id, updatedBlogInfo)
+    console.log('we updated the likes')
+    console.log(blog.likes, 'is blog likes after put')
+    console.log(updatedBlogInfo.likes, 'is updatedbloginfo likes after put')
+    //blog.likes = updatedBlogLikes
+    //console.log(blog.likes, 'is after setting it equal to blog likes')
+}
+  
   const loginForm = () => {
    return (
        <Togglable buttonLabel='login'>
@@ -114,7 +141,7 @@ const App = () => {
     }
   }
   
-  const mappedBlogs = blogs.map(blog =><Blog key={blog.id} blog={blog} userInfo={user}/>)
+  const mappedBlogs = blogs.map(blog =><Blog key={blog.id} blog={blog} userInfo={user} increaseLikes={() => increaseLikes(blog.id)} blogLikes={updatedBlogLikes}/>)
   //mappedBlogs.sort((a,b)=> a.props.blog.likes-b.props.blog.likes)
   //console.log(mappedBlogs)
   //console.log(mappedBlogs[0], 'is mapped blogs zero')
