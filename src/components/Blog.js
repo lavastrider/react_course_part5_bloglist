@@ -34,10 +34,25 @@ const Blog = ({blog, userInfo, increaseLikes}, blogLikes) => {
     ? 'hide'
     : 'view'
   
-  //the user wants to see detailed view
+//the user wants to see detailed view
   if (shown) {
     //the blog contains info on the user
     if (blog.user){
+      //the user just updated the likes
+      if (Object.values(blogLikes).length != 0) {
+        return (
+          <div style={blogStyle}>
+            <div>
+              <p>{blog.title} by {blog.author} <button onClick={toggleDetail}>{label}</button></p>
+              <p>{blog.url}</p>
+              <p>likes: {Object.values(blogLikes)} <button onClick={increaseLikes}>like</button></p>
+              <p>{blog.user.personName}</p>
+            </div>
+          </div>       
+        )
+      }
+      //the user did not just update the likes
+      else {
         return (
          <div style={blogStyle}>
             <div>
@@ -48,9 +63,25 @@ const Blog = ({blog, userInfo, increaseLikes}, blogLikes) => {
             </div>
           </div> 
         )
+      }
     }
     //the blog info must come from user token
     else {
+      //the user just updated the likes
+      if (Object.values(blogLikes).length != 0) {
+        return (
+         <div style={blogStyle}>
+            <div>
+              <p>{blog.title} by {blog.author} <button onClick={toggleDetail}>{label}</button></p>
+              <p>{blog.url}</p>
+              <p>likes: {Object.values(blogLikes)} <button onClick={increaseLikes}>like</button></p>
+              <p>{userInfo.personName}</p>
+            </div>
+          </div> 
+        )
+      }
+      //the user did not just update the likes
+      else{
         return (
         <div style={blogStyle}>
             <div>
@@ -61,6 +92,7 @@ const Blog = ({blog, userInfo, increaseLikes}, blogLikes) => {
             </div>
           </div> 
         )
+      }
     }
   }
   //the user does not want to see detailed view
