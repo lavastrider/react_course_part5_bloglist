@@ -65,7 +65,7 @@ const Blog = ({blog, userInfo}) => {
         <p>"{blog.title}" by {blog.author} <button onClick={toggleDetail}>{label}</button> </p>
         <p>{blog.url}</p>
         <p>{blog.id}</p>
-        <p>likes: {blog.likes} <button onClick={increaseLikes(blog.id)}>like</button></p>
+        <p>likes: {blog.likes} <button onClick=(()=>{increaseLikes(blog.id)})>like</button></p>
         <p>{blog.user.personName}</p>
         <p>pee</p>
         <button>remove</button>
@@ -85,7 +85,7 @@ const Blog = ({blog, userInfo}) => {
       </div>
       </div>
      )
-   }
+   } 
   } else {
     return (
       <div style={blogStyle}>
