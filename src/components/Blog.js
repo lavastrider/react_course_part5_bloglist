@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import blogService from '../services/blogs'
 
 const Blog = ({blog, userInfo}) => {
 
@@ -11,6 +12,8 @@ const Blog = ({blog, userInfo}) => {
   }
   
   const [shown, setShown] = useState(false)
+  const ident = blog.id
+  //console.log(ident)
   
   //console.log(userInfo, 'is userinfo')
   
@@ -18,8 +21,35 @@ const Blog = ({blog, userInfo}) => {
     setShown(!(shown))
   }
   
-  const deleteEntry = (id) => {
+  const increaseLikes = (id) => {
+    console.log(blog.user, 'is blog user')
+    console.log(blog.user.id, 'is blog user id')
+    
+    const updatedBlogInfo = {
+      user: blog.user.id,
+      likes: blog.likes+1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
+    
+    console.log(updatedBlogInfo, 'is updated blog info')
+    
+ 
+    blogService
+      .update(blog.id, updatedBlogInfo)
+      .then((diary) => {
+        console.log('we updated the likes')     
+      })
+  }
   
+  const deleteEntry = (id) => {
+    const agree = window.confirm(`Are you sure you want to delete ${blog.title}?`)
+    if (agree) {
+      blogService
+        .delete(id)
+        .then(()=> console.log('we deleted'))
+    }
   
   }
 
@@ -34,9 +64,11 @@ const Blog = ({blog, userInfo}) => {
       <div>
         <p>"{blog.title}" by {blog.author} <button onClick={toggleDetail}>{label}</button> </p>
         <p>{blog.url}</p>
-        <p>likes: {blog.likes} <button>like</button></p>
+        <p>{blog.id}</p>
+        <p>likes: {blog.likes} <button onClick={increaseLikes(blog.id)}>like</button></p>
         <p>{blog.user.personName}</p>
-        <button onClick={deleteEntry(blog.id)}>remove</button>
+        <p>pee</p>
+        <button>remove</button>
       </div>
       </div>
     )
@@ -46,9 +78,10 @@ const Blog = ({blog, userInfo}) => {
       <div>
         <p>"{blog.title}" by {blog.author} <button onClick={toggleDetail}>{label}</button> </p>
         <p>{blog.url}</p>
+        <p>{blog.id}</p>
         <p>likes: {blog.likes} <button>like</button></p>
         <p>{userInfo.personName}</p>
-        <button onClick={deleteEntry(blog.id)}>remove</button>
+        <button>remove</button>
       </div>
       </div>
      )

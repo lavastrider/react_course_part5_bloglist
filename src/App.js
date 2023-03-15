@@ -113,6 +113,20 @@ const App = () => {
       console.log('we have an error')
     }
   }
+  
+  const mappedBlogs = blogs.map(blog =><Blog key={blog.id} blog={blog} userInfo={user}/>)
+  //mappedBlogs.sort((a,b)=> a.props.blog.likes-b.props.blog.likes)
+  //console.log(mappedBlogs)
+  //console.log(mappedBlogs[0], 'is mapped blogs zero')
+  //console.log(mappedBlogs[0].props, 'is mapped blogs zero props')
+  //console.log(mappedBlogs[0].props.blog, 'is mapped blogs zero props blog')
+  //console.log(mappedBlogs[0].props.blog.likes, 'is mapped blogs zero props blog likes')
+  
+  //console.log(blogs, 'is blogs')
+  const sorted = [...blogs].sort((a,b)=> a - b)
+  //console.log(sorted, 'is sorted') 
+  const sortVal = Object.values(blogs)
+  //console.log(sortVal, 'is sort val')
 
 
   return (
@@ -127,14 +141,9 @@ const App = () => {
           <BlogForm createBlog={addBlog}/>
         </Togglable>
         <h2>Blog List</h2>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} userInfo={user}/>
-        )}
+        {mappedBlogs}
         </div>       
        }
-       <div className='note'>
-         <p>poop</p>
-       </div>
     </div>
   )
 }
