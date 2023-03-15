@@ -28,7 +28,7 @@ const update = (id, newObject) => {
 }
 
 const deleteEntry = (id) => {
-  console.log('we dare in the delete entry')
+  console.log('we are in the delete entry')
   axios.delete(`${baseUrl}/${id}`)
   console.log('we deleted the entry')
 }

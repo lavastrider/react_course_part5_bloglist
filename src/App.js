@@ -6,6 +6,7 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
+//import index.css
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -37,7 +38,7 @@ const App = () => {
     }
   }, [])
   
-  //console.log(user, 'is user outside of useeffect')
+  console.log(user, 'is user outside of useeffect')
   //console.log(loggedUserJSON, 'is logged user')
   
   const handleLogin = async (event) => {
@@ -69,7 +70,7 @@ const App = () => {
         setBlogs(blogs.concat(returnedBlog))
        })	
        
-    setErrorMessage(`The blog post "${blogs[blogs.length-1].title}" by ${blogs[blogs.length-1].author} has been added`)
+    setErrorMessage(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`)
 	setTimeout(() => {
 	    setErrorMessage(null)}, 5000)
    } catch(exception) {
@@ -109,11 +110,6 @@ const App = () => {
     setUpdatedBlogLikes(updatedBlogInfo.likes)
     //console.log(updatedBlogInfo, 'is updated blog info')
     await blogService.update(blog.id, updatedBlogInfo)
-    console.log('we updated the likes')
-    console.log(blog.likes, 'is blog likes after put')
-    console.log(updatedBlogInfo.likes, 'is updatedbloginfo likes after put')
-    //blog.likes = updatedBlogLikes
-    //console.log(blog.likes, 'is after setting it equal to blog likes')
 }
   
   const loginForm = () => {
