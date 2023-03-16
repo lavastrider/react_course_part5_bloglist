@@ -54,7 +54,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong username or password')
+      setErrorMessage('Error: Wrong username or password')
       setTimeout(() => {
         setErrorMessage(null)}, 5000)
     }
@@ -137,7 +137,7 @@ const App = () => {
   }
 
   const mappedBlogs = blogs.map(blog => <Blog key={blog.id} blog={blog} userInfo={user} increaseLikes={() => increaseLikes(blog.id)} deleteEntry={() => deleteBlog(blog.id)}/>)
-  mappedBlogs.sort((a,b) => a.props.blog.likes-b.props.blog.likes)
+  mappedBlogs.sort((a,b) => b.props.blog.likes-a.props.blog.likes)
   //console.log(mappedBlogs)
   //console.log(mappedBlogs[0], 'is mapped blogs zero')
   //console.log(mappedBlogs[0].props, 'is mapped blogs zero props')

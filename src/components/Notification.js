@@ -5,7 +5,7 @@ const Notification = ({ message }) => {
     background: 'lightgrey',
     fontSize: 20,
     borderStyle: 'solid',
-    borderColor: 'green',
+    borderColor: 'red',
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
@@ -29,13 +29,13 @@ const Notification = ({ message }) => {
 
   if (message.toLowerCase().includes('error')) {
     return(
-      <div style={errorStyle}>
+      <div style={errorStyle} className="errorStyle">
         {message}
       </div>
     )
   } else {
     return (
-      <div style={passStyle}>
+      <div style={passStyle} className="passStyle">
         {message}
       </div>
     )

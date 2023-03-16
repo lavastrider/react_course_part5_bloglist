@@ -3,69 +3,118 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
+import BlogForm from './BlogForm'
 
-test('renders blog title and author', () => {
+describe('tests that are for the exercises', () => {
 
-  //test that checks that the component displaying a blog renders the blog title and author
-  //but does not render url or likes by default
-  
-  const blog = {
-     title: 'KT Tunstall Discography',
-     author: 'Record Label',
-     url: 'kttunstall.com/discography'
-   }
+  test('renders blog title and author', () => {
 
-   const {container} = render(<Blog blog={blog}/>)
-   
-   const element = container.querySelector('.default-view')
-   //console.log(element, 'is container with query selector')
-   expect(element).toHaveTextContent('KT Tunstall Discography')
-   expect(element).toHaveTextContent('Record Label')
-   expect(element).not.toHaveTextContent('kttunstall.com/discography')
+    //test that checks that the component displaying a blog renders the blog title and author
+    //but does not render url or likes by default
+
+    const blog = {
+      title: 'KT Tunstall Discography',
+      author: 'Record Label',
+      url: 'kttunstall.com/discography'
+    }
+
+    const { container } = render(<Blog blog={blog}/>)
+
+    const element = container.querySelector('.default-view')
+    //console.log(element, 'is container with query selector')
+    expect(element).toHaveTextContent('KT Tunstall Discography')
+    expect(element).toHaveTextContent('Record Label')
+    expect(element).not.toHaveTextContent('kttunstall.com/discography')
+  })
+
+  test('blog url and likes shown when button clicked', () => {
+    //test that checks that the blog's url and number of likes are shown when button
+    //controlling details clicked
+
+    const blog = {
+      title: 'Lene Marlin Discography',
+      author: 'Record Label',
+      url: 'lenemarlin.com/discography'
+    }
+
+    const mockHandler = jest.fn()
+
+    const { container } = render(<Blog blog={blog}/>)
+    //console.log(container, 'is container')
+
+    const user = userEvent.setup()
+    const button = screen.getByText('view')
+    //console.log(button, 'is button') <- button was found
+    user
+      .click(button)
+      .then(() => console.log('we clicked the button'))
+
+    //const {container1} = render(<Blog blog={blog}/>)
+    //console.log(container1, 'is container1')
+
+    //const element = container.querySelector('.detail-view')
+    //console.log(element, 'is element') <- outputs as null
+
+    //expect(element).toHaveTextContent('lenemarlin.com/discography')
+    //expect(element).toHaveTextContent('likes')
+  })
+
+
+  test('if like button pressed twice like handler called twice', async () => {
+    //test which ensures that if like button pressed twice, event handler that component received
+    //as props is called twice
+
+    const blog = {
+      title: 'Youtube Poop',
+      author: 'Internet Explained',
+      url: 'wordpress.com/youtubememes/ytpoop'
+    }
+
+    const mockHandler = jest.fn()
+
+    render ( <Blog blog={blog} increaseLikes={mockHandler}/> )
+
+    //mockHandler for both increase likes and show detailed view
+
+
+    const user = userEvent.setup()
+
+    const viewButton = screen.getByText('view')
+    await user.click(viewButton)
+
+    const likeButton = screen.getByText('like')
+    await user.click(likeButton)
+    await user.click(likeButton)
+
+    expect(mockHandler.mock.calls).toHaveLength(3)
+
+  })
+
+
+  test('new blog created correctly', async () => {
+    //test for new blog form
+    //should check that form calls event handler it received as props with right details
+    //when new blog created
+
+    const createBlog = jest.fn()
+    const user = userEvent.setup()
+
+    render(<BlogForm createBlog={createBlog}/>)
+
+    const inputTitle = screen.getByPlaceholderText('The title of the blog')
+    const inputAuthor = screen.getByPlaceholderText('The author of the blog')
+    const inputUrl = screen.getByPlaceholderText('The URL of the blogpost')
+    const sendButton = screen.getByText('create')
+
+    await user.type(inputTitle, 'How to Blow Bubbles')
+    await user.type(inputAuthor, 'Spongebob Squarepants')
+    await user.type(inputUrl, 'instructables.com/howtoblowbubbles')
+    await user.click(sendButton)
+
+    expect(createBlog.mock.calls).toHaveLength(1)
+    expect(createBlog.mock.calls[0][0].title).toBe('How to Blow Bubbles')
+    expect(createBlog.mock.calls[0][0].author).toBe('Spongebob Squarepants')
+    expect(createBlog.mock.calls[0][0].url).toBe('instructables.com/howtoblowbubbles')
+
+  })
 })
-
-test('blog url and likes shown when button clicked', async () => {
-  //test that checks that the blog's url and number of likes are shown when button
-  //controlling details clicked
-  
-  const blog = {
-     title: 'Lene Marlin Discography',
-     author: 'Record Label',
-     url: 'lenemarlin.com/discography'
-   }
-
-  const mockHandler = jest.fn()
-
-  const {container} = render(<Blog blog={blog}/>)
-  console.log(container, 'is container')
-
-  const user = userEvent.setup()
-  const button = screen.getByText('view')
-  //console.log(button, 'is button') <- button does have value with view, showing that it found the button
-  await user.click(button)
-  
-  //const {container1} = render(<Blog blog={blog}/>)
-  //console.log(container1, 'is container1')
-  
-  const element = container.querySelector('.detail-view')
-  console.log(element, 'is element')
-
-  //expect(element).toHaveTextContent('lenemarlin.com/discography')
-})
-
-
-test('if like button pressed twice like handler called twice', () => {
-  //test which ensures that if like button pressed twice, event handler that component received
-  //as props is called twice
-  
-  const mockHandler = jest.fn()
-
-})
-
-
-test('new blog created correctly', () => {
-  //test for new blog form
-  //should check that form calls event handler it received as props with the right details when
-  //new blog created
-  
- })

@@ -12,17 +12,10 @@ const Blog = ({ blog, userInfo, increaseLikes, deleteEntry }) => {
 
   const [shown, setShown] = useState(false)
 
-  const toggleDetail = (showing) => {
-    setShown(!(showing))
+  const toggleDetail = () => {
+    //console.log(showing, 'is showing')
+    setShown(!(shown))
   }
-
-
-
-  //console.log(blogLikes, 'is blog likes in blog')
-  //console.log(Object.values(blogLikes), 'is object values blog likes')
-  //console.log(userInfo, 'is userinfo')
-
-
 
   const label = shown
     ? 'hide'
@@ -35,12 +28,12 @@ const Blog = ({ blog, userInfo, increaseLikes, deleteEntry }) => {
       return (
         <div style={blogStyle} className="detail-view">
           <div>
-            <p>{blog.title} by {blog.author} <button onClick={toggleDetail}>{label}</button></p>
+            <p>{blog.title} by {blog.author} <button id='toggle-detail' onClick={toggleDetail}>{label}</button></p>
             <p>{blog.url}</p>
-            <p>likes: {blog.likes} <button onClick={increaseLikes}>like</button></p>
+            <p>likes: {blog.likes} <button id='increase-likes' onClick={increaseLikes}>like</button></p>
             <p>{blog.user.personName}</p>
             {userInfo.username === blog.user.username && <div>
-              <button onClick={deleteEntry}>delete</button>
+              <button id="deletion" onClick={deleteEntry}>delete</button>
             </div>
             }
           </div>
@@ -52,11 +45,11 @@ const Blog = ({ blog, userInfo, increaseLikes, deleteEntry }) => {
       return (
         <div style={blogStyle} className="detail-view">
           <div>
-            <p>{blog.title} by {blog.author} <button onClick={toggleDetail}>{label}</button></p>
+            <p>{blog.title} by {blog.author} <button id='toggle-detail' onClick={toggleDetail}>{label}</button></p>
             <p>{blog.url}</p>
-            <p>likes: {blog.likes} <button onClick={increaseLikes}>like</button></p>
+            <p>likes: {blog.likes} <button id='increase-likes' onClick={increaseLikes}>like</button></p>
             <p>{userInfo.personName}</p>
-            <button onClick={deleteEntry}>delete</button>
+            <button id="deletion" onClick={deleteEntry}>delete</button>
           </div>
         </div>
       )
