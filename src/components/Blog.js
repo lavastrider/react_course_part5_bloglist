@@ -12,9 +12,8 @@ const Blog = ({ blog, userInfo, increaseLikes, deleteEntry }) => {
 
   const [shown, setShown] = useState(false)
 
-
-  const toggleDetail = () => {
-    setShown(!(shown))
+  const toggleDetail = (showing) => {
+    setShown(!(showing))
   }
 
 

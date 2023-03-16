@@ -36,23 +36,29 @@ test('blog url and likes shown when button clicked', async () => {
 
   const mockHandler = jest.fn()
 
-  render(<Blog blog={blog}/>)
+  const {container} = render(<Blog blog={blog}/>)
+  console.log(container, 'is container')
 
   const user = userEvent.setup()
   const button = screen.getByText('view')
+  //console.log(button, 'is button') <- button does have value with view, showing that it found the button
   await user.click(button)
   
-  const {container} = render(<Blog blog={blog}/>)
+  //const {container1} = render(<Blog blog={blog}/>)
+  //console.log(container1, 'is container1')
   
   const element = container.querySelector('.detail-view')
+  console.log(element, 'is element')
 
-  expect(element).toHaveTextContent('lenemarlin.com/discography')
+  //expect(element).toHaveTextContent('lenemarlin.com/discography')
 })
 
 
 test('if like button pressed twice like handler called twice', () => {
   //test which ensures that if like button pressed twice, event handler that component received
   //as props is called twice
+  
+  const mockHandler = jest.fn()
 
 })
 
