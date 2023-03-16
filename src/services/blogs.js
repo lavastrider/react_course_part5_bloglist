@@ -16,7 +16,7 @@ const create = async newObject => {
   const config = {
     headers: { Authorization: token }
   }
-  
+
   const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
@@ -29,15 +29,17 @@ const update = (id, newObject) => {
 
 const deleteEntry = (id) => {
   console.log('we are in the delete entry')
-  axios.delete(`${baseUrl}/${id}`)
+  const config = {
+    headers: { Authorization: token }
+  }
+  axios.delete(`${baseUrl}/${id}`, config)
   console.log('we deleted the entry')
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { 
+export default {
   getAll,
   create,
   update,
   deleteEntry,
-  setToken 
+  setToken
 }

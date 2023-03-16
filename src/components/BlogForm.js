@@ -1,11 +1,11 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-const BlogForm = ({ createBlog }, props) => {
+const BlogForm = ({ createBlog }) => {
   const [blogTitle, setBlogTitle] = useState('')
   const [blogAuthor, setBlogAuthor] = useState('')
   const [blogUrl, setBlogUrl] = useState('')
-  
-  
+
+
   const addBlog = (event) => {
     event.preventDefault()
     try {
@@ -15,26 +15,17 @@ const BlogForm = ({ createBlog }, props) => {
         author: blogAuthor,
         url: blogUrl
       })
-      
-      //so the blog's info is there. it exists. then why does it require a refresh? 
-	  
-	  //console.log(testBlog, 'is createblog that was created')
-	  //console.log(errorMessage, 'is error msg before set')
-	  
-	  
-	  //props.setErrorMessage(`The blog post "${blogTitle}" by ${blogAuthor} has been added`)
-	  //console.log(errorMessage, 'is error msg after set')
-	  //setTimeout(() => {
-	    //props.setErrorMessage(null)}, 5000)
-	  setBlogTitle('')
-	  setBlogAuthor('')
-	  setBlogUrl('')
-	} catch (exception) {
-	  //setErrorMessage({exception})
-	  console.log(exception, 'is exception')
-	}
+
+      //so the blog's info is there. it exists. then why does it require a refresh?
+
+      setBlogTitle('')
+      setBlogAuthor('')
+      setBlogUrl('')
+    } catch (exception) {
+      console.log(exception, 'is exception')
+    }
   }
-  
+
   const handleTitleChange = (event) => {
     setBlogTitle(event.target.value)
   }
@@ -44,10 +35,10 @@ const BlogForm = ({ createBlog }, props) => {
   const handleUrlChange = (event) => {
     setBlogUrl(event.target.value)
   }
-  
-  
-   return (
-     <div>
+
+
+  return (
+    <div>
       <h2>Create a New Blog</h2>
       <form onSubmit={addBlog}>
         <div>
@@ -57,6 +48,7 @@ const BlogForm = ({ createBlog }, props) => {
             value={blogTitle}
             name="title"
             onChange={handleTitleChange}
+            placeholder='The title of the blog'
           />
         </div>
         <div>
@@ -66,6 +58,7 @@ const BlogForm = ({ createBlog }, props) => {
             value={blogAuthor}
             name="author"
             onChange={handleAuthorChange}
+            placeholder='The author of the blog'
           />
         </div>
         <div>
@@ -75,12 +68,13 @@ const BlogForm = ({ createBlog }, props) => {
             value={blogUrl}
             name="url"
             onChange={handleUrlChange}
+            placeholder='The URL of the blogpost'
           />
         </div>
         <button onClick={addBlog}>create</button>
       </form>
     </div>
-   )
+  )
 }
 
 export default BlogForm

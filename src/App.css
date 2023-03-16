@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+.error {
+	color: red;
+	background: lightgrey;
+	font-size: 20px;
+	border-style: solid;
+	border-color: green;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.pass {
+	color: green;
+	background: lightgrey;
+	font-size: 20px;
+	border-style: solid;
+	border-color: green;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.blogStyle = {
+    paddingTop: 10px;
+    paddingLeft: 2px;
+    border: 'solid';
+    borderWidth: 1px;
+    marginBottom: 5px;
+  }
