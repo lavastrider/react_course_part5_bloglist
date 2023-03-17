@@ -8,52 +8,57 @@ import BlogForm from './BlogForm'
 describe('tests that are for the exercises', () => {
 
   test('renders blog title and author', () => {
-
-    //test that checks that the component displaying a blog renders the blog title and author
-    //but does not render url or likes by default
-
-    const blog = {
-      title: 'KT Tunstall Discography',
-      author: 'Record Label',
-      url: 'kttunstall.com/discography'
-    }
-
-    const { container } = render(<Blog blog={blog}/>)
-
-    const element = container.querySelector('.default-view')
-    //console.log(element, 'is container with query selector')
-    expect(element).toHaveTextContent('KT Tunstall Discography')
-    expect(element).toHaveTextContent('Record Label')
-    expect(element).not.toHaveTextContent('kttunstall.com/discography')
-  })
-
-  test('blog url and likes shown when button clicked', () => {
-    //test that checks that the blog's url and number of likes are shown when button
-    //controlling details clicked
-
+  
     const blog = {
       title: 'Lene Marlin Discography',
       author: 'Record Label',
       url: 'lenemarlin.com/discography'
     }
-
-    const mockHandler = jest.fn()
-
+  
     const { container } = render(<Blog blog={blog}/>)
-    //console.log(container, 'is container')
+
+    //test that checks that the component displaying a blog renders the blog title and author
+    //but does not render url or likes by default
+
+    const element = container.querySelector('.default-view')
+    //console.log(element, 'is container with query selector')
+    //console.log(element.textContent, 'is element text')
+    expect(element).toHaveTextContent('Lene Marlin Discography by Record Label view')
+    expect(element).toHaveTextContent('Record Label')
+    expect(element).not.toHaveTextContent('lenemarlin.com/discography')
+    
+    //re-render to set to neutral
+  })
+
+  test('blog url and likes shown when button clicked', () => {
+    //test that checks that the blog's url and number of likes are shown when button
+    //controlling details clicked
+    let count = 0
+    
+      const blog = {
+      title: 'Lene Marlin Discography',
+      author: 'Record Label',
+      url: 'lenemarlin.com/discography'
+    }
+  
+    const { container } = render(<Blog blog={blog}/>)
 
     const user = userEvent.setup()
     const button = screen.getByText('view')
-    //console.log(button, 'is button') <- button was found
-    user
-      .click(button)
-      .then(() => console.log('we clicked the button'))
+    //console.log(button, 'is button')
+    user.click(button).then(() => {
+    const element = container.querySelector('.detail-view')
+    screen.debug(element)
+    })
+      
+    console.log(count, 'is count')
 
     //const {container1} = render(<Blog blog={blog}/>)
     //console.log(container1, 'is container1')
 
-    //const element = container.querySelector('.detail-view')
-    //console.log(element, 'is element') <- outputs as null
+    
+    //console.log(element, 'is element')
+    //screen.debug(element)
 
     //expect(element).toHaveTextContent('lenemarlin.com/discography')
     //expect(element).toHaveTextContent('likes')
