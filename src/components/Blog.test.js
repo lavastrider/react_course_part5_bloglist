@@ -30,12 +30,12 @@ describe('tests that are for the exercises', () => {
     //re-render to set to neutral
   })
 
-  test('blog url and likes shown when button clicked', () => {
+  test('blog url and likes shown when button clicked', async () => {
     //test that checks that the blog's url and number of likes are shown when button
     //controlling details clicked
-    let count = 0
+    //let count = 0
     
-      const blog = {
+    const blog = {
       title: 'Lene Marlin Discography',
       author: 'Record Label',
       url: 'lenemarlin.com/discography'
@@ -46,22 +46,17 @@ describe('tests that are for the exercises', () => {
     const user = userEvent.setup()
     const button = screen.getByText('view')
     //console.log(button, 'is button')
-    user.click(button).then(() => {
+    await user.click(button)
     const element = container.querySelector('.detail-view')
-    screen.debug(element)
-    })
+    //screen.debug(element, 'is element')
       
-    console.log(count, 'is count')
-
-    //const {container1} = render(<Blog blog={blog}/>)
-    //console.log(container1, 'is container1')
-
+    //console.log(count, 'is count')
     
     //console.log(element, 'is element')
     //screen.debug(element)
 
-    //expect(element).toHaveTextContent('lenemarlin.com/discography')
-    //expect(element).toHaveTextContent('likes')
+    expect(element).toHaveTextContent('lenemarlin.com/discography')
+    expect(element).toHaveTextContent('likes')
   })
 
 
@@ -74,25 +69,26 @@ describe('tests that are for the exercises', () => {
       author: 'Internet Explained',
       url: 'wordpress.com/youtubememes/ytpoop'
     }
-
+    
     const mockHandler = jest.fn()
 
-    render ( <Blog blog={blog} increaseLikes={mockHandler}/> )
-
-    //mockHandler for both increase likes and show detailed view
-
+    const { container } = render(<Blog blog={blog} increaseLikes={mockHandler}/>)
 
     const user = userEvent.setup()
 
     const viewButton = screen.getByText('view')
     await user.click(viewButton)
+    
+    const element = container.querySelector('.detail-view')
+    expect(element).toHaveTextContent('wordpress.com/youtubememes/ytpoop')
 
     const likeButton = screen.getByText('like')
     await user.click(likeButton)
     await user.click(likeButton)
-
-    expect(mockHandler.mock.calls).toHaveLength(3)
-
+    
+    expect(mockHandler.mock.calls).toHaveLength(2)
+    
+    
   })
 
 

@@ -79,7 +79,7 @@ describe('Blog app', function() {
       cy.contains('like').click()
     })
     
-    it.only('the person who created the blog can see the delete button', function() {
+    it('the person who created the blog can see the delete button', function() {
       cy.contains('New Blog').click()
       cy.get('#title').type('How to Make Money')
       cy.get('#author').type('Mr. Krabs')
@@ -115,7 +115,7 @@ describe('Blog app', function() {
       cy.get('.default-view').eq(0).should('contain', 'Five Foods That Can Be Eaten Sexily by Blown Dopamine Receptors')
       cy.get('.default-view').eq(1).should('contain', 'There Are Hot And Ready Single Sandwiches In Your Area! by Not A Scam')
     })
-  
+      
   
     })
     
